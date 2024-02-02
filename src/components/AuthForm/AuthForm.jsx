@@ -1,43 +1,72 @@
-import { Box, Button, Flex, Image, Input, Text, VStack } from "@chakra-ui/react"
+import { Box, Button, Flex, FormControl, FormHelperText, Image, Input, Text, VStack } from "@chakra-ui/react"
 import { useState } from "react"
-const modifyLogin = () =>{
+import { auth } from "../../firebase/firebase.js"
+import { createUserWithEmailAndPassword } from "firebase/auth"
 
-}
 
 const AuthForm = () => {
-  const [isLogin, setIsLogin] = useState()
+  const [isSignIn, setIsSignIn] = useState()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const registerEmail = () => {
+    if(isSignIn) {
+      createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user)
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage)
+      });
+    }
+  }
+
   return (
     <>  
-      <Box border={"1px solid gray"} borderRadius={4} padding={5}>
+      <Box onSubmit={() => registerEmail()} border={"1px solid gray"} borderRadius={4} padding={5}>
         <VStack spacing={4}>
+          <FormControl>
           <Image src="/src/public/logo.png" h={24} cursor={"pointer"} alt="Instagram" />
           <Input 
+            value={email}
+            id="email"
             placeholder="Email"
             fontSize={14}
             type="email"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Input 
+            id="password"
+            value={password}
             placeholder="Password"
             fontSize={14}
             type="password"
+            onChange={(e) => setPassword(e.target.value)}
           />
-          {!isLogin ? 
+          {!isSignIn ? 
           (<Input 
+            value={confirmPassword}
+            id="confirmPassword"
+            onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Confirm Password"
             fontSize={14}
             type="password"
           />)
           : null}
-          <Button w={"full"} colorScheme="blue" size={"sm"} fontSize={14}>
-            {isLogin ? "Log in": "Sign up"}
+          <Button type="submit" w={"full"} colorScheme="blue" size={"sm"} fontSize={14}>
+            {isSignIn ? "Log in": "Sign up"}
           </Button>
-
-          <Flex alignItems={"center"} justifyContent={"center"} my={4} gap={1} w={"full"}>
+            <FormHelperText textAlign={"center"}>invalid email</FormHelperText>
+          <Flex alignItems={"center"} justifyContent={"center"} mt={4} gap={1} w={"full"}>
             <Box flex={2} h={"1px"} bg={"gray.400"} />
             <Text mx={1} color={"white"}>OR</Text>
             <Box flex={2} h={"1px"} bg={"gray.400"} />
           </Flex>
-            <Flex gap={1}><Text>Don't have an account?</Text><Text cursor={"pointer"} textColor={"lightBlue"}>Sign up</Text></Flex>
+            <Flex gap={1}><Text>{isSignIn ? "Don't have": "Have"} an account?</Text><Text cursor={"pointer"} onClick={() => setIsSignIn(!isSignIn)} textColor={"lightBlue"}>{isSignIn ? "Sign up": "Sign in"}</Text></Flex>
+          </FormControl>
         </VStack>
 
       </Box>
