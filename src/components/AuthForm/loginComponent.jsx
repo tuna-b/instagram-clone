@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Input, Button } from "@chakra-ui/react"
+import useSignIn from "../../hooks/useSignIn";
 
   const LoginComponent = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const {loading, error, login} = useSignIn();
     
 
   return (
@@ -30,6 +32,8 @@ import { Input, Button } from "@chakra-ui/react"
             colorScheme="blue"
             size={"sm"}
             fontSize={14}
+            onClick={() => login({ email, password })}
+            isLoading={loading}
           >
             Log in
           </Button>

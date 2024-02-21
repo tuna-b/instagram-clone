@@ -20,12 +20,16 @@ const useSignIn = () => {
 
                 if (user) {
                     console.log("User signed in successfully!");
+                    // localStorage.setItem("user-info", JSON.stringify(user))
+                    console.log(user)
+                    console.log("user info: ", user.following, user.followers, user.uid, user.email)
                 } 
             } catch (error) {
                 console.log(error);
             }
         }
       }
+      return {loading, error, login}
 }
 
 export default useSignIn
