@@ -27,7 +27,7 @@ const Navbar = () => {
     {
       icon: <Avatar size={"sm"} name="Tuna Bolukbasi" src="/profilepic.png" />,
       text: "Profile",
-      link: "/sampleprofilelink"
+      link: "/username"
     }
   ]
   return (
