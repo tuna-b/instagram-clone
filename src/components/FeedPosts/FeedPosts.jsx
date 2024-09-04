@@ -5,8 +5,10 @@ import { useEffect, useState } from "react"
 const FeedPosts = () => {
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
-        setIsLoading(false);
-    }, 2000)
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 2000)
+    }, [])
   return (
     <Container maxW={'container.sm'} py={10} px={2}>
         {isLoading && [0,1,2,3].map((_,idx) => (
