@@ -70,7 +70,7 @@ const AuthForm = () => {
             <Box flex={2} h={"1px"} bg={"gray.400"} />
           </Flex>
           <Flex gap={1}>
-            <Text>{isSignIn ? "Don't have" : "Have"} an account?</Text>
+            <Text>{!isSignIn ? "Don't have" : "Have"} an account?</Text>
             <Text
               cursor={"pointer"}
               onClick={() => setIsSignIn(!isSignIn)}

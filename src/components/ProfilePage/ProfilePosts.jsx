@@ -1,5 +1,6 @@
 import { Box, Grid, Skeleton, VStack } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
+import ProfilePost from "./ProfilePost";
 
     
 const ProfilePosts = () => {
@@ -30,6 +31,15 @@ const ProfilePosts = () => {
           </Skeleton>
         </VStack>
       ))}
+
+      {!isLoading && (
+        <>
+          <ProfilePost img='src/public/img2.png'/>
+          <ProfilePost img='src/public/img2.png'/>
+          <ProfilePost img='src/public/img3.png'/>
+          <ProfilePost img='src/public/img3.png'/>
+        </>
+      )}
 
     </Grid>
   )

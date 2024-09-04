@@ -70,7 +70,7 @@ const Signup = () => {
 				isLoading={loading}
 				onClick={() => signup(inputs)}
 			>
-				Sign Up
+				Register
 			</Button>
 		</>
 	);
